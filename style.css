@@ -1,0 +1,25 @@
+body{
+  width:968px;
+  text-align:center;
+}
+
+.container{
+  width:100%;
+}
+
+div {
+  border:1px solid red;
+}
+
+.game-board{
+  height:500px;
+  width:500px;
+  margin: 0 auto;
+}
+
+.game-piece{
+  padding:1px;
+  height:32%;
+  width:32%;
+  display:inline-block;
+}
