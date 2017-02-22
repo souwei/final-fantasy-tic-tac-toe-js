@@ -159,16 +159,16 @@ showText(messageContent," \" Press start to begin.... \" ",0,50)
 
 var changeActivePlayerAvatar = function(){
   var avatarImage = document.querySelector(".game-message-interactive img");
-  avatarImage.style.borderRadius="50%";
-  avatarImage.style.height="auto";
-  avatarImage.style.width="120px";
+  // avatarImage.style.borderRadius="50%";
+  // avatarImage.style.height="auto";
+  // avatarImage.style.width="120px";
 
   switch(playerTurn){
     case 0:
-    avatarImage.src="images/chocobo_avatar.jpg";
+    avatarImage.src="images/choco_animate.gif";
     break;
     case 1:
-    avatarImage.src="images/cactuar_avatar.jpg";
+    avatarImage.src="images/cactuar_animate.gif";
     break;
   }
 };

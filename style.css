@@ -96,10 +96,11 @@ header, .game-messages{
   text-align:left;
 }
 .game-message-interactive img{
-  width:180px;
-  height:160px;
+  width:100px;
+  height:auto;
   float:left;
-  padding-right:0;
+  padding-left:20px;
+  padding-top:10px;
 
 }
 
