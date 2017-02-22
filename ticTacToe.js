@@ -11,7 +11,7 @@ var player2 = {
   playerScore:0
 }
 var players = [player1,player2];
-var playerTurn = 1;
+var playerTurn = 0;
 
 var initGameBoard = function(){
   var gamePieceNum = 0 ;
@@ -79,7 +79,7 @@ var gameOver = function(){
 var gameMove = function(y,x){
   //alternate turns between player 1 and 2
   playerTurn = (playerTurn == 0 ? 1 : 0);
-  setPlayerPiece(players[playerTurn],y,x);
+  return setPlayerPiece(players[playerTurn],y,x);
 };
 
 var gameReset = function(){
@@ -89,11 +89,12 @@ var gameReset = function(){
   });
   currentMoves=0;
   gameData = [];
-  initGameBoard();
 };
+var gameBoard = document.querySelector(".game-board");
+var gameMessages = document.querySelector(".game-messages");
+var messageContent = gameMessages.querySelector("p");
 
 var drawGameBoard = function(){
-var gameBoard = document.querySelector(".game-board");
   for(var count = 0 ; count < gameData.length ; count++){
     for(var counter = 0 ; counter < gameData[count].length ; counter++){
       var gamePiece = document.createElement('div');
@@ -106,13 +107,64 @@ var gameBoard = document.querySelector(".game-board");
 
   gameBoard.addEventListener("click",function(event){
       if(event.target.className === "game-piece"){
-        console.log("OOLA");
         var x = event.target.getAttribute('data-column');
         var y = event.target.getAttribute('data-row');
-        gameMove(y,x);
+        if(gameMove(y,x)){
+          event.target.classList.add(players[playerTurn].playerName);
+          messageContent.innerHTML="";
+          if(checkPlayerVictory(players[playerTurn])){
+          showText(messageContent," \" Victor: Player " + (playerTurn+1) + " \" ",0,50);
+          changeActivePlayerAvatar();
+          }else if(gameOver()){
+          showText(messageContent," \" Draw Game\" ",0,50);
+          changeActivePlayerAvatar();
+          }else
+          showText(messageContent," \" Player "+ (playerTurn+1) +"'s Turn... \" ",0,50);
+          changeActivePlayerAvatar();
+        }
       }
     });
+    //1st turn message prompt
+    changeActivePlayerAvatar();
+    messageContent.innerHTML="";
+    showText(messageContent,"\" Player "+ (playerTurn+1) +"'s Turn... \" ",0,50);
+
 };
 
+var removeGameBoard = function(){
+  while (gameBoard.firstChild) {
+    gameBoard.removeChild(gameBoard.firstChild);
+  }
+  gameReset();
+};
 
-initGameBoard();
+//Start button to begin game
+var startButton = document.querySelector("button");
+var startStop = 1;
+startButton.addEventListener("click",function(){
+  removeGameBoard();
+  initGameBoard();
+  drawGameBoard();
+
+});
+
+//Print messages to game messages area
+var showText = function (target, message, index, interval) {
+  if (index < message.length) {
+    $(target).append(message[index++]);
+    setTimeout(function () { showText(target, message, index, interval); }, interval);
+  }
+}
+showText(messageContent," \" Press start to begin.... \" ",0,50)
+
+var changeActivePlayerAvatar = function(){
+  var avatarImage = document.querySelector(".game-message-interactive img");
+  switch(playerTurn){
+    case 0:
+    avatarImage.src="images/chocobo_avatar.jpg";
+    break;
+    case 1:
+    avatarImage.src="images/cactuar_avatar.jpg";
+    break;
+  }
+};
