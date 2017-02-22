@@ -41,17 +41,19 @@ var setPlayerPiece = function (playerIdentity,rowNum,columnNum){
     playerIdentity.playerScore += gameData[rowNum][columnNum].scoreValue;
     currentMoves++;
   }else{
-    console.log("Piece already taken by "+gameData[rowNum][columnNum].owner);
+    //Illegal move
+    return false;
   }
   if(checkPlayerVictory(playerIdentity)){
     console.log(playerIdentity.playerName+ " has won!");
-    gameReset();
+    //gameReset();
   }else{
     if(gameOver()){
       console.log("Draw");
-      gameReset();
+      //gameReset();
     }
   }
+    return true;
 };
 
 var winningCombosScores = [7, 56, 448, 73, 146, 292, 273, 84];
