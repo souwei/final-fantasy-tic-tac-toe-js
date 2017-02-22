@@ -40,6 +40,7 @@ body{
 header h1{
   font-size: 'x-large';
   color:white;
+
 }
 
 header, .game-messages{
@@ -86,11 +87,12 @@ header, .game-messages{
   height:160px;
   float:left;
   padding-right:0;
+
 }
 
 .game-message-interactive{
   width: 600px;
-  height: 150px;
+  height: 120px;
   margin: 0 auto;
   overflow: hidden;
   border: 2px solid black;
@@ -98,7 +100,34 @@ header, .game-messages{
   background-color:#7D7B7B;
   font-family: 'VT323', monospace;
   font-size:x-large;
+  display:inline-block;
+  margin-top:15px;
 }
 .game-messages{
   height: 250px;
+}
+.game-menu{
+  display:inline-block;
+  height: 103px;
+  vertical-align:top;
+  font-family: 'VT323', monospace;
+  font-size: xx-large;
+  background-color:#7D7B7B;
+  border: 3px solid black;
+  padding-left:0;
+  padding-right:0;
+}
+button{
+  font-family: 'Alegreya', serif;
+  color:white;
+  font-size: large;
+  background-color:#7D7B7B;
+  border:none;
+  text-align:left;
+  width:100%;
+  outline:none;
+}
+button:active{
+  background-color:yellow;
+  border:none;
 }

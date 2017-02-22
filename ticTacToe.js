@@ -159,6 +159,10 @@ showText(messageContent," \" Press start to begin.... \" ",0,50)
 
 var changeActivePlayerAvatar = function(){
   var avatarImage = document.querySelector(".game-message-interactive img");
+  avatarImage.style.borderRadius="50%";
+  avatarImage.style.height="auto";
+  avatarImage.style.width="120px";
+
   switch(playerTurn){
     case 0:
     avatarImage.src="images/chocobo_avatar.jpg";
