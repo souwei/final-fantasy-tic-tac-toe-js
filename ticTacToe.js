@@ -74,10 +74,10 @@ var gameOver = function(){
   }
 };
 
-var gameMove = function(players){
+var gameMove = function(y,x){
   //alternate turns between player 1 and 2
   playerTurn = (playerTurn == 0 ? 1 : 0);
-  setPlayerPiece(players[playerTurn],rowNum,columnNum);
+  setPlayerPiece(players[playerTurn],y,x);
 };
 
 var gameReset = function(){
@@ -88,6 +88,28 @@ var gameReset = function(){
   currentMoves=0;
   gameData = [];
   initGameBoard();
+};
+
+var drawGameBoard = function(){
+var gameBoard = document.querySelector(".game-board");
+  for(var count = 0 ; count < gameData.length ; count++){
+    for(var counter = 0 ; counter < gameData[count].length ; counter++){
+      var gamePiece = document.createElement('div');
+      gamePiece.className = "game-piece";
+      gamePiece.setAttribute('data-column',counter);
+      gamePiece.setAttribute('data-row',count);
+      gameBoard.appendChild(gamePiece);
+    }
+  }
+
+  gameBoard.addEventListener("click",function(event){
+      if(event.target.className === "game-piece"){
+        console.log("OOLA");
+        var x = event.target.getAttribute('data-column');
+        var y = event.target.getAttribute('data-row');
+        gameMove(y,x);
+      }
+    });
 };
 
 
