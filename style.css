@@ -15,8 +15,21 @@ body{
   width:500px;
   margin: 0 auto;
   background-color:#7D7B7B;
+  display:inline-block;
 }
 
+.playerPanel{
+  height:500px;
+  width:225px;
+  border:1px solid red;
+  display:inline-block;
+}
+
+.playerPotrait1, .playerPotrait2{
+  border:1px solid red;
+  height:220px;
+  width: 225px;
+}
 .game-piece{
   padding:1px;
   height:32%;
@@ -118,7 +131,6 @@ header, .game-messages{
   padding-right:0;
 }
 button{
-  font-family: 'Alegreya', serif;
   color:white;
   font-size: large;
   background-color:#7D7B7B;
