@@ -6,6 +6,12 @@ var player1 = {
   playerName:"souwei",
   playerScore:0
 };
+var player2 = {
+  playerName:"souwei2",
+  playerScore:0
+}
+var players = [player1,player2];
+var playerTurn = 1;
 
 var initGameBoard = function(){
   var gamePieceNum = 0 ;
@@ -26,56 +32,63 @@ var initGameBoard = function(){
   }
 }
 
-//player function to take ownership
+//player function to take ownership of piece
+var maxMoves = rows * columns;
+var currentMoves = 0
 var setPlayerPiece = function (playerIdentity,rowNum,columnNum){
   if(gameData[rowNum][columnNum].owner==="none"){
-    gameData[rowNum][columnNum].owner=playerIdentity.name;
+    gameData[rowNum][columnNum].owner=playerIdentity.playerName;
+    playerIdentity.playerScore += gameData[rowNum][columnNum].scoreValue;
+    currentMoves++;
   }else{
     console.log("Piece already taken by "+gameData[rowNum][columnNum].owner);
   }
-}
+  if(checkPlayerVictory(playerIdentity)){
+    console.log(playerIdentity.playerName+ " has won!");
+    gameReset();
+  }else{
+    if(gameOver()){
+      console.log("Draw");
+      gameReset();
+    }
+  }
+};
 
 var winningCombosScores = [7, 56, 448, 73, 146, 292, 273, 84];
-var getPlayerScore = function(playerIdentity){
-  var column1 = [0];
-  var column2 = [0];
-  var column3 = [0];
 
-  //Check for row victories
-  gameData.forEach(function(row){
-    var currentRowScore=0;
-    row.forEach(function(element,index){
-      if(element.owner===playerIdentity.name){
-        currentRowScore += element.scoreValue;
-        switch(index){
-          case 0:
-          column1.push(element.scoreValue);
-          break;
-          case 1:
-          column2.push(element.scoreValue);
-          break;
-          case 2:
-          column3.push(element.scoreValue);
-          break;
-        }
+var checkPlayerVictory = function(playerIdentity){
+  var currentPlayerScore = playerIdentity.playerScore;
+     for (var i = 0; i < winningCombosScores.length; i += 1) {
+          if ((winningCombosScores[i] & currentPlayerScore) === winningCombosScores[i] ) {
+              return true;
+          }
       }
-    });
-    if(winningCombosScores.includes(currentRowScore)){
-      console.log("Victory for " + playerIdentity.name);
-    }
+      return false;
+};
 
+var gameOver = function(){
+  if(currentMoves===maxMoves){
+    return true;
+  }else{
+    return false;
+  }
+};
+
+var gameMove = function(players){
+  //alternate turns between player 1 and 2
+  playerTurn = (playerTurn == 0 ? 1 : 0);
+  setPlayerPiece(players[playerTurn],rowNum,columnNum);
+};
+
+var gameReset = function(){
+  //reset score counter
+  players.forEach(function(player){
+    player.playerScore=0;
   });
-  var columnScores = [column1,column2,column3];
-  //reduce array elements into single variable
-  columnScores.forEach(function(element){
-    element.reduce(function(acc,val){
-      return acc + val;
-    });
-  });
-  console.log(columnScores);
+  currentMoves=0;
+  gameData = [];
+  initGameBoard();
+};
 
-  //check for diagonal victories
-
-}
 
 initGameBoard();
