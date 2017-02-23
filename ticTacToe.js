@@ -4,16 +4,16 @@ var columns = 3;
 var gameData = [];
 var player1 = {
   playerName:"souwei",
-  playerScore:0.
+  playerScore:0,
   wins:0
 };
 var player2 = {
   playerName:"souwei2",
-  playerScore:0.
+  playerScore:0,
   wins:0
 }
 var players = [player1,player2];
-var playerTurn = 1;
+var playerTurn = 0;
 var gameRound = 1;
 
 var initGameBoard = function(){
@@ -104,7 +104,14 @@ var resetRounds = function(){
 
 var retrieveGameRound = function(){
   return gameRound;
-}
+};
+
+var resetPlayerWins = function(){
+  //reset player wins
+  players.forEach(function(player){
+    player.wins=0;
+  });
+};
 
 
 initGameBoard();
