@@ -152,7 +152,14 @@ var resetRounds = function(){
 
 var retrieveGameRound = function(){
   return gameRound;
-}
+};
+
+var resetPlayerWins = function(){
+  //reset player wins
+  players.forEach(function(player){
+    player.wins=0;
+  });
+};
 
 
 
