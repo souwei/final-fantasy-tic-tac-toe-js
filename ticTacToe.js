@@ -84,6 +84,7 @@ var gameOver = function(){
 
 var gameMove = function(y,x){
   //alternate turns between player 1 and 2
+  debugger
   playerTurn = (playerTurn == 0 ? 1 : 0);
   return setPlayerPiece(players[playerTurn],y,x);
 };
@@ -118,9 +119,14 @@ var drawGameBoard = function(){
         if(gameMove(y,x)){
           event.target.classList.add(players[playerTurn].playerName);
           messageContent.innerHTML="";
+
           if(checkPlayerVictory(players[playerTurn])){
+
           showText(messageContent," \" Victor: Player " + (playerTurn+1) + " \" ",0,50);
+          setVictoryFlag(playerTurn);
           changeActivePlayerAvatar();
+          updateScoreBoard();
+
           }else if(gameOver()){
           showText(messageContent," \" Draw Game\" ",0,50);
           changeActivePlayerAvatar();
@@ -162,7 +168,6 @@ var resetPlayerWins = function(){
 };
 
 
-
 //Start button to begin game
 var startButton = document.querySelector("button");
 var startStop = 1;
@@ -170,7 +175,8 @@ startButton.addEventListener("click",function(){
   removeGameBoard();
   initGameBoard();
   drawGameBoard();
-
+  $( ".playerPanel").hide();
+  showPlayerPanel();
 });
 
 //Print messages to game messages area
@@ -184,10 +190,6 @@ showText(messageContent," \" Press start to begin.... \" ",0,50)
 
 var changeActivePlayerAvatar = function(){
   var avatarImage = document.querySelector(".game-message-interactive img");
-  // avatarImage.style.borderRadius="50%";
-  // avatarImage.style.height="auto";
-  // avatarImage.style.width="120px";
-
   switch(playerTurn){
     case 0:
     avatarImage.src="images/choco_animate.gif";
@@ -196,4 +198,25 @@ var changeActivePlayerAvatar = function(){
     avatarImage.src="images/cactuar_animate.gif";
     break;
   }
+};
+
+var updateScoreBoard = function(){
+  var player1Pane = document.querySelector(".playerPotrait1");
+  var player1winScore = player1Pane.querySelector("h4");
+  player1winScore.innerHTML = "Wins: "+ players[0].wins;
+  var player2Pane = document.querySelector(".playerPotrait2");
+  var player2winScore = player2Pane.querySelector("h4");
+  player2winScore.innerHTML = "Wins: "+ players[1].wins;
+};
+
+//Hide player panel
+$( ".playerPanel").hide();
+var showPlayerPanel = function(){
+    $( ".playerPanel" ).show( "blind" );
+};
+
+var setVictoryFlag = function(playerNum){
+  var x = document.querySelectorAll(".victoryFlag");
+  var imageX = x[playerNum].querySelector("img");
+  imageX.style.visibility="visible";
 };
