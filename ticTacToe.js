@@ -4,14 +4,17 @@ var columns = 3;
 var gameData = [];
 var player1 = {
   playerName:"souwei",
-  playerScore:0
+  playerScore:0,
+  wins:0
 };
 var player2 = {
   playerName:"souwei2",
-  playerScore:0
+  playerScore:0,
+  wins:0
 }
 var players = [player1,player2];
 var playerTurn = 0;
+var gameRound = 1;
 
 var initGameBoard = function(){
   var gamePieceNum = 0 ;
@@ -46,10 +49,13 @@ var setPlayerPiece = function (playerIdentity,rowNum,columnNum){
   }
   if(checkPlayerVictory(playerIdentity)){
     console.log(playerIdentity.playerName+ " has won!");
+    playerIdentity.wins+=1;
+    gameRound += 1;
     //gameReset();
   }else{
     if(gameOver()){
       console.log("Draw");
+      gameRound += 1;
       //gameReset();
     }
   }
@@ -131,12 +137,24 @@ var drawGameBoard = function(){
 
 };
 
+
 var removeGameBoard = function(){
   while (gameBoard.firstChild) {
     gameBoard.removeChild(gameBoard.firstChild);
   }
   gameReset();
 };
+
+var resetRounds = function(){
+  gameRound = 1;
+
+};
+
+var retrieveGameRound = function(){
+  return gameRound;
+}
+
+
 
 //Start button to begin game
 var startButton = document.querySelector("button");
