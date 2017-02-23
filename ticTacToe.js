@@ -48,6 +48,7 @@ var setPlayerPiece = function (playerIdentity,rowNum,columnNum){
     return false;
   }
   if(checkPlayerVictory(playerIdentity)){
+
     console.log(playerIdentity.playerName+ " has won!");
     playerIdentity.wins+=1;
     gameRound += 1;
@@ -59,6 +60,7 @@ var setPlayerPiece = function (playerIdentity,rowNum,columnNum){
       //gameReset();
     }
   }
+
     return true;
 };
 
@@ -83,9 +85,6 @@ var gameOver = function(){
 };
 
 var gameMove = function(y,x){
-  //alternate turns between player 1 and 2
-  debugger
-  playerTurn = (playerTurn == 0 ? 1 : 0);
   return setPlayerPiece(players[playerTurn],y,x);
 };
 
@@ -97,6 +96,7 @@ var gameReset = function(){
   currentMoves=0;
   gameData = [];
 };
+
 var gameBoard = document.querySelector(".game-board");
 var gameMessages = document.querySelector(".game-messages");
 var messageContent = gameMessages.querySelector("p");
@@ -121,17 +121,22 @@ var drawGameBoard = function(){
           messageContent.innerHTML="";
 
           if(checkPlayerVictory(players[playerTurn])){
-
-          showText(messageContent," \" Victor: Player " + (playerTurn+1) + " \" ",0,50);
+          var displayMessage = " \" Victor: Player " + (playerTurn+1) + " \" ";
+          messageContent.innerHTML="";
+          showText(messageContent, displayMessage, 0, 50);
+          //issue with displaying winning message
           setVictoryFlag(playerTurn);
           changeActivePlayerAvatar();
           updateScoreBoard();
 
           }else if(gameOver()){
-          showText(messageContent," \" Draw Game\" ",0,50);
+          showText(messageContent," \" Draw Game\" ",0,20);
           changeActivePlayerAvatar();
+          changePlayerTurn();
           }else
-          showText(messageContent," \" Player "+ (playerTurn+1) +"'s Turn... \" ",0,50);
+          changePlayerTurn();
+
+          setTimeout(showText(messageContent," \" Player "+ (playerTurn+1) +"'s Turn... \" ",0,20), 10000);
           changeActivePlayerAvatar();
         }
       }
@@ -140,9 +145,7 @@ var drawGameBoard = function(){
     changeActivePlayerAvatar();
     messageContent.innerHTML="";
     showText(messageContent,"\" Player "+ (playerTurn+1) +"'s Turn... \" ",0,50);
-
 };
-
 
 var removeGameBoard = function(){
   while (gameBoard.firstChild) {
@@ -167,6 +170,9 @@ var resetPlayerWins = function(){
   });
 };
 
+var changePlayerTurn = function(){
+    playerTurn = (playerTurn == 0 ? 1 : 0);
+};
 
 //Start button to begin game
 var startButton = document.querySelector("button");
@@ -177,6 +183,8 @@ startButton.addEventListener("click",function(){
   drawGameBoard();
   $( ".playerPanel").hide();
   showPlayerPanel();
+  hideVictoryFlag();
+
 });
 
 //Print messages to game messages area
@@ -219,4 +227,12 @@ var setVictoryFlag = function(playerNum){
   var x = document.querySelectorAll(".victoryFlag");
   var imageX = x[playerNum].querySelector("img");
   imageX.style.visibility="visible";
+};
+
+var hideVictoryFlag = function(){
+  var x = document.querySelectorAll(".victoryFlag");
+  var image1 = x[0].querySelector("img");
+  var image2 = x[1].querySelector("img");
+  image1.style.visibility="hidden";
+  image2.style.visibility="hidden";
 };
