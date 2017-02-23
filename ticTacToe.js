@@ -82,11 +82,12 @@ var gameOver = function(){
   }
 };
 
-var gameMove = function(y,x){
+
+var gameMove = function(players){
+  setPlayerPiece(players[playerTurn],rowNum,columnNum);
   //alternate turns between player 1 and 2
-  debugger
   playerTurn = (playerTurn == 0 ? 1 : 0);
-  return setPlayerPiece(players[playerTurn],y,x);
+
 };
 
 var gameReset = function(){
