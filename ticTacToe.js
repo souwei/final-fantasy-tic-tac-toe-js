@@ -83,9 +83,9 @@ var gameOver = function(){
 };
 
 var gameMove = function(players){
+  setPlayerPiece(players[playerTurn],rowNum,columnNum);
   //alternate turns between player 1 and 2
   playerTurn = (playerTurn == 0 ? 1 : 0);
-  setPlayerPiece(players[playerTurn],rowNum,columnNum);
 };
 
 var gameReset = function(){
