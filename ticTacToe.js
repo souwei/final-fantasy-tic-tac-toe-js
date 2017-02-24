@@ -84,15 +84,8 @@ var gameOver = function(){
   }
 };
 
-<<<<<<< HEAD
 var gameMove = function(y,x){
   return setPlayerPiece(players[playerTurn],y,x);
-=======
-var gameMove = function(players){
-  setPlayerPiece(players[playerTurn],rowNum,columnNum);
-  //alternate turns between player 1 and 2
-  playerTurn = (playerTurn == 0 ? 1 : 0);
->>>>>>> game-engine
 };
 
 var gameReset = function(){
