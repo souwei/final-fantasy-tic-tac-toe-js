@@ -46,6 +46,7 @@ i learnt the rules and context of the problem, also how my code solves the probl
 
 ##Unsolved Problems
 *  Victory message overlapping with player turn message  
+
 ##Future Additions
 * Make Cards Flip on Entrance
 * Modify and change game to tripple triad card game
