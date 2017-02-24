@@ -51,4 +51,5 @@ i learnt the rules and context of the problem, also how my code solves the probl
 * Make Cards Flip on Entrance
 * Modify and change game to tripple triad card game
 
-
+##Game link
+https://souwei.github.io/ticTac_Toe/index.html
